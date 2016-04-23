@@ -1,12 +1,10 @@
-require 'rubygems'
 require 'bundler/setup'
-require 'pry'
-require 'factory_girl'
+Bundler.require
 
 require 'support/factory_girl'
 
 # $LOAD_PATH << File.expand_path('./app')
-$LOAD_PATH << './app'
+# $LOAD_PATH << './app'
 Dir['./app/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
