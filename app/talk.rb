@@ -11,11 +11,11 @@ class Talk
 
   def initialize
     self.time_unit = TIME_UNIT
-    self.marked = false
+    self.marked    = false
   end
 
   def read_source(input)
-    /(.*)\s((\d+)\s*min|lightning)$/i.match(input) do |m|
+    /#{talk_regex}/i.match(input) do |m|
       self.title  = m[1]
       self.length = is_normal_talk(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
       self.tag    = is_normal_talk(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
@@ -24,6 +24,10 @@ class Talk
 
 
   private
+
+    def talk_regex
+      "(.*)\\s((\\d+)\\s*#{TIME_UNIT}|#{LIGHTNING_TAG})$"
+    end
 
     def is_normal_talk(parsed)
       /\d+/i.match(parsed)
