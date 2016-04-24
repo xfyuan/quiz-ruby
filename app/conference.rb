@@ -22,12 +22,12 @@ class Conference
     end
 
     def refresh_days
-      minutes = @talks.reduce(0) { |memo, talk| memo += talk.length }
+      minutes = @talks.map(&:length).reduce(:+)
       @days = (minutes.to_f/Track.new.total_length).ceil
     end
 
     def refresh_tracks
-      @tracks = @days.times.map { |n| Track.new }
+      @tracks = @days.times.map { Track.new }
     end
 
     def sort_talks
