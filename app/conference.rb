@@ -1,5 +1,5 @@
 class Conference
-  attr_accessor(:days, :talks, :sorted_talks, :tracks, :scheduled_tracks)
+  attr_accessor(:days, :talks, :tracks, :scheduled_tracks)
 
   def initialize(data)
     read_source(data)
@@ -31,12 +31,12 @@ class Conference
     end
 
     def sort_talks
-      @sorted_talks = @talks.sort_by { |talk| talk.length }.reverse
+      @talks.sort_by! { |talk| talk.length }.reverse!
     end
 
     def talks_in_current_track(track)
       track_total_length = track.total_length
-      @sorted_talks.reduce([]) do |memo, talk|
+      @talks.reduce([]) do |memo, talk|
         if !talk.marked && track_total_length >= talk.length
           memo << talk
           talk.marked = true

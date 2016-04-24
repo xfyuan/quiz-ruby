@@ -5,7 +5,6 @@ RSpec.describe Conference do
     expect(conference).to respond_to :days
     expect(conference).to respond_to :talks
     expect(conference).to respond_to :tracks
-    expect(conference).to respond_to :sorted_talks
   end
 
   it 'initialize data source' do
@@ -18,7 +17,6 @@ RSpec.describe Conference do
 
   it 'schedule tracks with full talks' do
     conference.schedule_tracks_with_talks
-    expect(conference.sorted_talks.length).to eq conference.talks.length
     expect(conference.tracks.first.talks.length).to eq 8
     expect(conference.tracks.last.talks.length).to eq 11
   end
