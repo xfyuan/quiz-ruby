@@ -9,9 +9,10 @@ class Talk
 
   attr_accessor(:title, :length, :tag, :time_unit, :marked)
 
-  def initialize
+  def initialize(input)
     self.time_unit = TIME_UNIT
     self.marked    = false
+    read_source(input)
   end
 
   def read_source(input)

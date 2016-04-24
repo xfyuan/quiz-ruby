@@ -10,8 +10,7 @@ RSpec.describe Talk do
   end
 
   it 'initial property value through reading a normal talk' do
-    talk.read_source('Common Ruby Errors 45min')
-    expect(talk.title).to eq 'Common Ruby Errors'
+    expect(talk.title).to include 'Test talk'
     expect(talk.tag).to eq 'normal'
     expect(talk.time_unit).to eq 'min'
     expect(talk.length).to eq 45

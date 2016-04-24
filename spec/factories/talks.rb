@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :talk do
-    sequence(:title)  { |n| "Test talk#{n}" }
-    sequence(:tag)    { |n| "tag#{n}" }
-    length    { rand(100) }
+    sequence(:input)  { |n| "Test talk#{n} 45min" }
+
+    initialize_with { new(input) }
   end
 end
