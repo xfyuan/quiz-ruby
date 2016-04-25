@@ -1,11 +1,11 @@
 class Talk
   LIGHTNING_LENGTH = 5
   LUNCH_LENGTH     = 60
-  TIME_UNIT        = 'min'
-  NORMAL_TAG       = 'normal'
-  LIGHTNING_TAG    = 'lightning'
-  DEFAULT_TAG      = 'default'
-  PUBLIC_EVENT     = ['lunch', 'networking event']
+  TIME_UNIT        = 'min'.freeze
+  NORMAL_TAG       = 'normal'.freeze
+  LIGHTNING_TAG    = 'lightning'.freeze
+  DEFAULT_TAG      = 'default'.freeze
+  PUBLIC_EVENT     = ['lunch', 'networking event'].freeze
 
   attr_accessor(:title, :length, :tag, :time_unit, :marked)
 
@@ -22,8 +22,8 @@ class Talk
 
     /#{talk_regex}/i.match(input) do |m|
       @title  = m[1]
-      @length = is_normal_talk(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
-      @tag    = is_normal_talk(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
+      @length = normal_talk?(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
+      @tag    = normal_talk?(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
     end
   end
 
@@ -44,7 +44,7 @@ class Talk
       "(.*)\\s((\\d+)\\s*#{TIME_UNIT}|#{LIGHTNING_TAG})$"
     end
 
-    def is_normal_talk(parsed)
+    def normal_talk?(parsed)
       /\d+/i.match(parsed)
     end
 end

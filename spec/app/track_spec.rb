@@ -2,12 +2,12 @@ RSpec.describe Track do
   let(:track) { build(:track) }
 
   it 'has properties' do
-    expect(track.talks).to be_a Array
-    expect(track.planned_talks).to be_a Hash
-    expect(track.start_time).to be_a Time
-    expect(track.end_time).to be_a Time
-    expect(track.lunch_time).to be_a Time
-    expect(track.total_length).to be_a Numeric
+    expect(track).to respond_to :talks
+    expect(track).to respond_to :planned_talks
+    expect(track).to respond_to :start_time
+    expect(track).to respond_to :end_time
+    expect(track).to respond_to :lunch_time
+    expect(track).to respond_to :total_length
   end
 
   it 'initialize total length of current track' do

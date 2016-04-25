@@ -2,10 +2,10 @@ RSpec.describe Talk do
   let(:talk) { build(:talk) }
 
   it 'has properties' do
-    expect(talk.title).to be_a String
-    expect(talk.tag).to be_a String
-    expect(talk.length).to be_a Numeric
-    expect(talk.time_unit).to be_a String
+    expect(talk).to respond_to :title
+    expect(talk).to respond_to :tag
+    expect(talk).to respond_to :length
+    expect(talk).to respond_to :time_unit
     expect(talk.marked).to be false
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Talk do
   end
 
   it 'output string of normal talk' do
-    expect(talk.to_s).to eq 'Test talk1 45min'
+    expect(talk.to_s).to match /Test talk(\d+) 45min/
   end
 
   it 'output string of lightning talk' do

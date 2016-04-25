@@ -3,15 +3,24 @@ class Conference
 
   def initialize(data)
     read_source(data)
-    refresh_days()
-    refresh_tracks()
+    refresh_days
+    refresh_tracks
   end
 
   def schedule_tracks_with_talks
-    sort_talks()
+    sort_talks
     @tracks.each do |track|
       track.talks = talks_in_current_track(track)
-      track.plan_talks()
+      track.plan_talks
+    end
+  end
+
+  def print_scheduled_tracks
+    @tracks.each_with_index do |track, i|
+      puts "Track #{i+1}".encode(universal_newline: true)
+      puts track.to_s
+      puts
+      puts
     end
   end
 
@@ -27,22 +36,21 @@ class Conference
     end
 
     def refresh_tracks
-      @tracks = @days.times.map { Track.new }
+      @tracks = Array.new(@days) { Track.new }
     end
 
     def sort_talks
-      @talks.sort_by! { |talk| talk.length }.reverse!
+      @talks.sort_by!(&:length).reverse!
     end
 
     def talks_in_current_track(track)
       track_total_length = track.total_length
-      @talks.reduce([]) do |memo, talk|
+      @talks.each_with_object([]) do |talk, memo|
         if !talk.marked && track_total_length >= talk.length
           memo << talk
           talk.marked = true
           track_total_length -= talk.length
         end
-        memo
       end
     end
 
