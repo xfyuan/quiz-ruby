@@ -1,6 +1,9 @@
 require 'bundler/setup'
 Bundler.require
 
+require 'simplecov'
+SimpleCov.start
+
 require 'support/factory_girl'
 
 # $LOAD_PATH << File.expand_path('./app')
