@@ -23,4 +23,13 @@ RSpec.describe Talk do
     expect(talk.time_unit).to eq 'min'
     expect(talk.length).to eq 5
   end
+
+  it 'output string of normal talk' do
+    expect(talk.to_s).to eq 'Test talk1 45min'
+  end
+
+  it 'output string of lightning talk' do
+    talk.read_source('Common Ruby Errors lightning')
+    expect(talk.to_s).to eq 'Common Ruby Errors lightning'
+  end
 end

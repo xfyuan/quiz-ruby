@@ -10,16 +10,26 @@ class Talk
   attr_accessor(:title, :length, :tag, :time_unit, :marked)
 
   def initialize(input)
-    self.time_unit = TIME_UNIT
-    self.marked    = false
+    @time_unit = TIME_UNIT
+    @marked    = false
     read_source(input)
   end
 
   def read_source(input)
     /#{talk_regex}/i.match(input) do |m|
-      self.title  = m[1]
-      self.length = is_normal_talk(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
-      self.tag    = is_normal_talk(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
+      @title  = m[1]
+      @length = is_normal_talk(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
+      @tag    = is_normal_talk(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
+    end
+  end
+
+  def to_s
+    if @tag == NORMAL_TAG
+      "#{@title} #{@length}#{@time_unit}"
+    elsif @tag == LIGHTNING_TAG
+      "#{@title} #{@tag}"
+    else
+      @title.capitalize
     end
   end
 
