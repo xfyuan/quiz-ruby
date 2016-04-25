@@ -1,5 +1,4 @@
-require 'bundler/setup'
-Bundler.require
+require('./config/bootstrap.rb')
 
 require 'simplecov'
 SimpleCov.start
@@ -8,7 +7,6 @@ require 'support/factory_girl'
 
 # $LOAD_PATH << File.expand_path('./app')
 # $LOAD_PATH << './app'
-Dir['./app/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
