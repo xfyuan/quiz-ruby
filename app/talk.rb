@@ -5,17 +5,21 @@ class Talk
   NORMAL_TAG       = 'normal'
   LIGHTNING_TAG    = 'lightning'
   DEFAULT_TAG      = 'default'
-  IS_PUBLIC_EVENT  = true
+  PUBLIC_EVENT     = ['lunch', 'networking event']
 
   attr_accessor(:title, :length, :tag, :time_unit, :marked)
 
   def initialize(input)
+    @length    = LUNCH_LENGTH
+    @tag       = DEFAULT_TAG
     @time_unit = TIME_UNIT
     @marked    = false
     read_source(input)
   end
 
   def read_source(input)
+    @title = input.split.map(&:capitalize).join(' ') if PUBLIC_EVENT.include?(input.downcase)
+
     /#{talk_regex}/i.match(input) do |m|
       @title  = m[1]
       @length = is_normal_talk(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
@@ -29,7 +33,7 @@ class Talk
     elsif @tag == LIGHTNING_TAG
       "#{@title} #{@tag}"
     else
-      @title.capitalize
+      @title
     end
   end
 

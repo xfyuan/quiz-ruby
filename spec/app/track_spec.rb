@@ -26,4 +26,18 @@ RSpec.describe Track do
       :'05:00PM'
     ]
   end
+
+  it 'output string of current track with full talks' do
+    track.plan_talks
+    expect(track.to_s).to be
+      <<~EOF
+        09:00AM Writing Fast Tests Against Enterprise Rails 60min
+        10:00AM Overdoing it in Python 45min
+        10:45AM Lua for the Masses 30min
+        11:15AM Ruby Errors from Mismatched Gem Versions 45min
+        12:00PM Lunch
+        01:00PM Ruby on Rails: Why We Should Move On 60min
+        05:00PM Networking Event
+      EOF
+  end
 end

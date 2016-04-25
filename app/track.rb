@@ -19,6 +19,11 @@ class Track
     fill_network_event()
   end
 
+  def to_s
+    @planned_talks.map { |time_tag, talk| "#{time_tag.to_s} #{talk.to_s}".encode(universal_newline: true) }
+  end
+
+
   private
 
     def planned_talks_with_lunch(dts)
