@@ -1,5 +1,5 @@
 class Conference
-  attr_accessor(:days, :talks, :tracks, :scheduled_tracks)
+  attr_accessor(:days, :talks, :tracks)
 
   def initialize(data)
     read_source(data)
