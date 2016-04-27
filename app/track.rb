@@ -12,8 +12,7 @@ class Track
   end
 
   def plan_talks
-    dts = @start_time
-    @planned_talks = planned_talks_with_lunch(dts)
+    @planned_talks = planned_talks_with_lunch
     fill_network_event
   end
 
@@ -23,7 +22,8 @@ class Track
 
   private
 
-    def planned_talks_with_lunch(dts)
+    def planned_talks_with_lunch
+      dts = @start_time
       @talks.each_with_object({}) do |talk, memo|
         memo[time_tag(dts)] = talk
         dts += talk.length * 60
