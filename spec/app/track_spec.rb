@@ -7,6 +7,7 @@ RSpec.describe Track do
     expect(track).to respond_to :start_time
     expect(track).to respond_to :end_time
     expect(track).to respond_to :lunch_time
+    expect(track).to respond_to :lunch_length
     expect(track).to respond_to :total_length
   end
 

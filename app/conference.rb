@@ -17,7 +17,7 @@ class Conference
 
   def print_scheduled_tracks
     @tracks.each_with_index do |track, i|
-      puts "Track #{i+1}".encode(universal_newline: true)
+      puts "Track #{i + 1}".encode(universal_newline: true)
       puts track.to_s
       puts
       puts
@@ -32,7 +32,7 @@ class Conference
 
     def refresh_days
       minutes = @talks.map(&:length).reduce(:+)
-      @days = (minutes.to_f/Track.new.total_length).ceil
+      @days = (minutes.to_f / Track.new.total_length).ceil
     end
 
     def refresh_tracks

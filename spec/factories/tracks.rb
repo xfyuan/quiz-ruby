@@ -10,5 +10,7 @@ FactoryGirl.define do
         Talk.new('Ruby on Rails: Why We Should Move On 60min')
       ]
     }
+
+    initialize_with { new(Time.parse('09:00'), Time.parse('17:00'), Time.parse('12:00'), 60) }
   end
 end

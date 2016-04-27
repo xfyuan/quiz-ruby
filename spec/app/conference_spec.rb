@@ -20,5 +20,4 @@ RSpec.describe Conference do
     expect(conference.tracks.first.talks.length).to eq 8
     expect(conference.tracks.last.talks.length).to eq 11
   end
-
 end
