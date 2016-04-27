@@ -18,7 +18,7 @@ class Talk
   end
 
   def read_source(input)
-    @title = input.split.map(&:capitalize).join(' ') if PUBLIC_EVENT.include?(input.downcase)
+    @title = input.split.map(&:capitalize).join(' ') if public_event_title?(input)
 
     /#{talk_regex}/i.match(input) do |m|
       @title  = m[1]
@@ -45,6 +45,10 @@ class Talk
     end
 
     def normal_talk?(parsed)
-      /\d+/i.match(parsed)
+      /\d+/i.match(parsed) && parsed.to_i > 5
+    end
+
+    def public_event_title?(input)
+      PUBLIC_EVENT.include?(input.downcase)
     end
 end

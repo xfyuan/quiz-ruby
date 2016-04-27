@@ -2,7 +2,7 @@ class Track
   START_TIME   = Time.parse('09:00').freeze
   LUNCH_TIME   = Time.parse('12:00').freeze
   END_TIME     = Time.parse('17:00').freeze
-  LUNCH_LENGTH = (1 * 60 * 60).freeze
+  LUNCH_LENGTH = 1 * 60 * 60
 
   attr_accessor(:start_time, :end_time, :lunch_time, :total_length, :talks, :planned_talks)
 
@@ -10,10 +10,10 @@ class Track
     @start_time   = START_TIME
     @lunch_time   = LUNCH_TIME
     @end_time     = END_TIME
-    @total_length = (@end_time - @start_time - LUNCH_LENGTH) / 60
+    @total_length = (END_TIME - START_TIME - LUNCH_LENGTH) / 60
   end
 
-  def plan_talks()
+  def plan_talks
     dts = @start_time
     @planned_talks = planned_talks_with_lunch(dts)
     fill_network_event
@@ -39,8 +39,7 @@ class Track
     end
 
     def fill_network_event
-      dts = @start_time + @total_length * 60 + LUNCH_LENGTH
-      @planned_talks[time_tag(dts)] = Talk.new('Networking Event')
+      @planned_talks[time_tag(END_TIME)] = Talk.new('Networking Event')
     end
 
     def time_tag(dts)
