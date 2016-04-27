@@ -18,7 +18,7 @@ class Conference
   def print_scheduled_tracks
     @tracks.each_with_index do |track, i|
       puts "Track #{i + 1}".encode(universal_newline: true)
-      puts track.to_s
+      puts track.render
       puts
       puts
     end

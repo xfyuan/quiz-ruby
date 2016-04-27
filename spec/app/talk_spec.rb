@@ -25,11 +25,11 @@ RSpec.describe Talk do
   end
 
   it 'output string of normal talk' do
-    expect(talk.to_s).to match /Test talk(\d+) 45min/
+    expect(talk.render).to match /Test talk(\d+) 45min/
   end
 
   it 'output string of lightning talk' do
     talk.read_source('Common Ruby Errors lightning')
-    expect(talk.to_s).to eq 'Common Ruby Errors lightning'
+    expect(talk.render).to eq 'Common Ruby Errors lightning'
   end
 end

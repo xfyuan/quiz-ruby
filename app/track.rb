@@ -16,8 +16,8 @@ class Track
     fill_network_event
   end
 
-  def to_s
-    @planned_talks.map { |time_tag, talk| "#{time_tag.to_s} #{talk.to_s}" }
+  def render
+    @planned_talks.map { |time_tag, talk| "#{time_tag.to_s} #{talk.render}" }
   end
 
   private

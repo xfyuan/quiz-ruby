@@ -30,7 +30,7 @@ RSpec.describe Track do
 
   it 'output string of current track with full talks' do
     track.plan_talks
-    expect(track.to_s).to be
+    expect(track.render).to be
       <<~EOF
         09:00AM Writing Fast Tests Against Enterprise Rails 60min
         10:00AM Overdoing it in Python 45min

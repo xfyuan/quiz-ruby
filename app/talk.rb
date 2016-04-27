@@ -27,7 +27,7 @@ class Talk
     end
   end
 
-  def to_s
+  def render
     if @tag == NORMAL_TAG
       "#{@title} #{@length}#{@time_unit}"
     elsif @tag == LIGHTNING_TAG
