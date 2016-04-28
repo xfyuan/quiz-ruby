@@ -1,4 +1,6 @@
-require('./config/bootstrap.rb')
+require './config/bootstrap.rb'
+
+Dir['./app/**/*.rb'].each { |f| require f }
 
 StackProf.run(mode: :cpu, out: 'tmp/stackprof.dump') do
   source = './data/source.txt'

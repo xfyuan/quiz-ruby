@@ -1,4 +1,6 @@
-require('./config/bootstrap.rb')
+require './config/bootstrap.rb'
+
+Dir['./app/**/*.rb'].each { |f| require f }
 
 source = './data/source.txt'
 File.open(source) do |f|
