@@ -17,15 +17,9 @@ RSpec.describe Track do
 
   it 'has planned talks of current track' do
     track.plan_talks
-    expect(track.planned_talks.keys).to eq [
-      :'09:00AM',
-      :'10:00AM',
-      :'10:45AM',
-      :'11:15AM',
-      :'12:00PM',
-      :'01:00PM',
-      :'05:00PM'
-    ]
+    expect(track.planned_talks.keys).to eq %i(
+      09:00AM 10:00AM 10:45AM 11:15AM 12:00PM 01:00PM 05:00PM
+    )
   end
 
   it 'output string of current track with full talks' do
