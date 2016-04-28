@@ -7,23 +7,29 @@ class Talk
   DEFAULT_TAG      = 'default'.freeze
   PUBLIC_EVENT     = ['lunch', 'networking event'].freeze
 
-  attr_accessor(:title, :length, :tag, :time_unit, :marked)
+  attr_accessor(:title, :length, :tag, :time_unit, :errors, :marked)
 
   def initialize(input)
     @length    = LUNCH_LENGTH
     @tag       = DEFAULT_TAG
     @time_unit = TIME_UNIT
     @marked    = false
+    @errors    = []
+
     read_source(input)
   end
 
   def read_source(input)
-    @title = input.split.map(&:capitalize).join(' ') if public_event_title?(input)
+    @errors << "!!Invalid talk: #{input}" if invalid?(input)
 
-    /#{talk_regex}/i.match(input) do |m|
-      @title  = m[1]
-      @length = normal_talk?(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
-      @tag    = normal_talk?(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
+    if @errors.empty?
+      @title = input.split.map(&:capitalize).join(' ') if public_event_title?(input)
+
+      /#{talk_regex}/i.match(input) do |m|
+        @title  = m[1]
+        @length = normal_talk?(m[2]) ? m[3].to_i : LIGHTNING_LENGTH
+        @tag    = normal_talk?(m[2]) ? NORMAL_TAG : LIGHTNING_TAG
+      end
     end
   end
 
@@ -40,12 +46,16 @@ class Talk
 
   private
 
+    def invalid?(input)
+      /[^()\w\s:.-]/.match(input)
+    end
+
     def talk_regex
       "(.*)\\s((\\d+)\\s*#{TIME_UNIT}|#{LIGHTNING_TAG})$"
     end
 
     def normal_talk?(parsed)
-      /\d+/i.match(parsed) && parsed.to_i > 5
+      /\d+/.match(parsed) && parsed.to_i > 5
     end
 
     def public_event_title?(input)
