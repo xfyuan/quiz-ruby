@@ -1,4 +1,5 @@
-require './config/bootstrap.rb'
+require 'bundler/setup'
+Bundler.require(:default, :test)
 
 require 'simplecov'
 SimpleCov.start
