@@ -4,10 +4,13 @@ class Track
   END_TIME     = Time.parse('17:00').freeze
   LUNCH_LENGTH = 60
 
-  attr_accessor(:start_time, :end_time, :lunch_time, :lunch_length, :total_length, :talks, :planned_talks)
+  attr_accessor(:start_time, :end_time, :lunch_time, :lunch_length,
+                :total_length, :talks, :planned_talks)
 
-  def initialize(start_time = START_TIME, end_time = END_TIME, lunch_time = LUNCH_TIME, lunch_length = LUNCH_LENGTH)
-    @start_time, @end_time, @lunch_time, @lunch_length = start_time, end_time, lunch_time, lunch_length
+  def initialize(start_time = START_TIME, end_time = END_TIME,
+                 lunch_time = LUNCH_TIME, lunch_length = LUNCH_LENGTH)
+    @start_time, @end_time, @lunch_time, @lunch_length = start_time,
+      end_time, lunch_time, lunch_length
     @total_length = (@end_time - @start_time) / 60 - @lunch_length
   end
 
