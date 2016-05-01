@@ -23,11 +23,21 @@ class Track
     @planned_talks.map { |time_tag, talk| "#{time_tag.to_s} #{talk.render}" }
   end
 
+  def render_errors
+    bad_talks = @talks.reject { |t| t.errors.empty? }
+    unless bad_talks.empty?
+      bad_talks.map { |bad_talk| bad_talk.render }
+    end
+  end
+
   private
 
     def planned_talks_with_lunch
       dts = @start_time
-      @talks.each_with_object({}) do |talk, memo|
+
+      good_talks = @talks.select { |t| t.errors.empty? }
+
+      good_talks.select(&:errors).each_with_object({}) do |talk, memo|
         memo[time_tag(dts)] = talk
         dts += talk.length * 60
 

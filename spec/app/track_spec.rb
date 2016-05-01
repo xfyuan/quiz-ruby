@@ -24,15 +24,28 @@ RSpec.describe Track do
 
   it 'output string of current track with full talks' do
     track.plan_talks
-    expect(track.render).to be
-      <<~EOF
-        09:00AM Writing Fast Tests Against Enterprise Rails 60min
-        10:00AM Overdoing it in Python 45min
-        10:45AM Lua for the Masses 30min
-        11:15AM Ruby Errors from Mismatched Gem Versions 45min
-        12:00PM Lunch
-        01:00PM Ruby on Rails: Why We Should Move On 60min
-        05:00PM Networking Event
-      EOF
+    expect(track.render).to eq (
+      [
+        '09:00AM Writing Fast Tests Against Enterprise Rails 60min',
+        '10:00AM Overdoing it in Python 45min',
+        '10:45AM Lua for the Masses 30min',
+        '11:15AM Ruby Errors from Mismatched Gem Versions 45min',
+        '12:00PM Lunch',
+        '01:00PM Ruby on Rails: Why We Should Move On 60min',
+        '05:00PM Networking Event',
+      ]
+    )
+  end
+
+  it 'output string of current track with invalide talks' do
+    track.talks << Talk.new('QWESdfghji fgh=> !@#$%^&*()')
+    track.talks << Talk.new('!@#$%^&SDFGHJKdfgh')
+    track.plan_talks
+    expect(track.render_errors).to eq (
+      [
+        '!!Invalid talk: QWESdfghji fgh=> !@#$%^&*()',
+        '!!Invalid talk: !@#$%^&SDFGHJKdfgh'
+      ]
+    )
   end
 end
