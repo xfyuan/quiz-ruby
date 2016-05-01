@@ -5,6 +5,7 @@ class Talk
   NORMAL_TAG       = 'normal'.freeze
   LIGHTNING_TAG    = 'lightning'.freeze
   DEFAULT_TAG      = 'default'.freeze
+  ERROR_TAG        = 'error'.freeze
   PUBLIC_EVENT     = ['lunch', 'networking event'].freeze
 
   attr_accessor(:title, :length, :tag, :time_unit, :errors, :marked)
@@ -20,7 +21,7 @@ class Talk
   end
 
   def read_source(input)
-    @errors << "!!Invalid talk: #{input}" if invalid?(input)
+    validate(input)
 
     if @errors.empty?
       @title = input.split.map(&:capitalize).join(' ') if public_event_title?(input)
@@ -34,6 +35,8 @@ class Talk
   end
 
   def render
+    return @errors.join('') if @errors.length > 0
+
     if @tag == NORMAL_TAG
       "#{@title} #{@length}#{@time_unit}"
     elsif @tag == LIGHTNING_TAG
@@ -45,6 +48,14 @@ class Talk
 
 
   private
+
+    def validate(input)
+      if invalid?(input)
+        @tag = ERROR_TAG
+        @length = 0
+        @errors << "!!Invalid talk: #{input}"
+      end
+    end
 
     def invalid?(input)
       /[^()\w\s:.-]/.match(input)

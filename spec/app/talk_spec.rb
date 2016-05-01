@@ -34,7 +34,13 @@ RSpec.describe Talk do
     let(:talk) { build :talk, input: 'QWESdfghji fgh=> !@#$%^&*()' }
 
     it 'reading a invalid talk' do
+      expect(talk.length).to eq 0
+      expect(talk.tag).to eq 'error'
       expect(talk.errors.length).to be > 0
+    end
+
+    it 'output error log when invalid input' do
+      expect(talk.render).to eq '!!Invalid talk: QWESdfghji fgh=> !@#$%^&*()'
     end
   end
 
