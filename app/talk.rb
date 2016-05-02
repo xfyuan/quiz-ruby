@@ -35,7 +35,7 @@ class Talk
   end
 
   def render
-    return @errors.join('') if @errors.length > 0
+    return @errors.join('') unless @errors.empty?
 
     if @tag == NORMAL_TAG
       "#{@title} #{@length}#{@time_unit}"

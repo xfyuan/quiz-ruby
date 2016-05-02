@@ -11,5 +11,18 @@ File.open(source) do |f|
 
   conference.schedule_tracks_with_talks
 
-  conference.print_scheduled_tracks
+  conference.render_scheduled_tracks
+
+  unless conference.invalid_talks.empty?
+    puts '-' * 50
+    puts conference.invalid_talks
+    puts '-' * 50
+    puts
+  end
+
+  conference.schedule_result.each_with_index do |schedule, i|
+    puts "Track #{i + 1}"
+    puts schedule
+    puts
+  end
 end

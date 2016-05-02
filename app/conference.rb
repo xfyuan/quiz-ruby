@@ -1,5 +1,5 @@
 class Conference
-  attr_accessor(:days, :talks, :tracks)
+  attr_accessor(:days, :talks, :tracks, :schedule_result, :invalid_talks)
 
   def initialize(data)
     read_source(data)
@@ -8,6 +8,7 @@ class Conference
   end
 
   def schedule_tracks_with_talks
+    filter_invalid_talks
     sort_talks
     @tracks.each do |track|
       track.talks = talks_in_current_track(track)
@@ -15,13 +16,9 @@ class Conference
     end
   end
 
-  def print_scheduled_tracks
-    @tracks.each_with_index do |track, i|
-      puts "Track #{i + 1}"
-      puts track.render
-      puts
-      puts
-    end
+  def render_scheduled_tracks
+    @schedule_result = @tracks.each_with_object([]) { |track, memo| memo << track.render }
+    @invalid_talks.map! { |talk| talk.errors.to_s }
   end
 
   private
@@ -41,6 +38,11 @@ class Conference
 
     def sort_talks
       @talks.sort_by!(&:length).reverse!
+    end
+
+    def filter_invalid_talks
+      @invalid_talks = @talks.reject { |t| t.errors.empty? }
+      @talks.keep_if { |t| t.errors.empty? }
     end
 
     def talks_in_current_track(track)

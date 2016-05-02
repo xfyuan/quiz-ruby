@@ -36,16 +36,4 @@ RSpec.describe Track do
       ]
     )
   end
-
-  it 'output string of current track with invalide talks' do
-    track.talks << Talk.new('QWESdfghji fgh=> !@#$%^&*()')
-    track.talks << Talk.new('!@#$%^&SDFGHJKdfgh')
-    track.plan_talks
-    expect(track.render_errors).to eq (
-      [
-        '!!Invalid talk: QWESdfghji fgh=> !@#$%^&*()',
-        '!!Invalid talk: !@#$%^&SDFGHJKdfgh'
-      ]
-    )
-  end
 end
